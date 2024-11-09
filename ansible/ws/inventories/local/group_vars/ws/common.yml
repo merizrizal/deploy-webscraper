@@ -1,0 +1,7 @@
+---
+arch_mapping:
+  x86_64: amd64
+  aarch64: arm64
+
+install_dir: /opt/webscraper
+packages: "{{ root_dir }}/dist/docker_webscraper.tar.gz"

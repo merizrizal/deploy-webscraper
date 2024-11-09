@@ -1,0 +1,11 @@
+---
+lab:
+  vars:
+    root_dir: "{{ lookup('ansible.builtin.env', 'ROOT_DIR') }}"
+    system_service_manager: auto
+
+  children:
+    ws:
+      hosts:
+        ws01:
+          ansible_host: 192.168.58.10

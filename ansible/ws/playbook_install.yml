@@ -1,0 +1,7 @@
+---
+- name: Webscraper Deployment
+  hosts: all
+  roles:
+    - role: pre_deploy
+    - role: deploy_container
+  become: true

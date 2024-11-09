@@ -1,0 +1,3 @@
+---
+app_env: local
+app_debug: "true"

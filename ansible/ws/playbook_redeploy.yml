@@ -1,0 +1,8 @@
+---
+- name: webscraper Re-deployment
+  hosts: all
+  roles:
+    - role: deploy_container
+      vars:
+        do_redeploy: true
+  become: true

@@ -1,0 +1,45 @@
+---
+- name: Creates directories
+  ansible.builtin.file:
+    path: "{{ install_dir }}/docker"
+    state: directory
+    owner: "{{ ansible_user }}"
+    mode: "770"
+
+- name: Remove webscraper docker image
+  ansible.builtin.command:
+    chdir: "{{ install_dir }}/docker"
+    cmd: make remove-image
+  when: do_redeploy is defined and do_redeploy
+  changed_when: false
+
+- name: Upload webscraper packages into the remote machine and extract
+  ansible.builtin.unarchive:
+    src: "{{ packages }}"
+    dest: "{{ install_dir }}/docker"
+    owner: "{{ ansible_user }}"
+    mode: "775"
+
+- name: Create files
+  ansible.builtin.template:
+    src: Makefile.j2
+    dest: "{{ install_dir }}/docker/Makefile"
+    owner: "{{ ansible_user }}"
+    mode: "770"
+
+- name: Ensure for appropriate ownership on all webscraper files
+  ansible.builtin.command:
+    cmd: chown -R {{ ansible_user }} {{ install_dir }}/docker
+  changed_when: false
+
+- name: Build webscraper docker image
+  ansible.builtin.command:
+    chdir: "{{ install_dir }}/docker"
+    cmd: make build-image
+  changed_when: false
+
+- name: Start webscraper docker containers
+  ansible.builtin.command:
+    chdir: "{{ install_dir }}/docker"
+    cmd: make env-up
+  changed_when: false

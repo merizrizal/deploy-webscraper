@@ -1,0 +1,4 @@
+---
+# encrypt this files later by using ansible-vault
+vault_sys_user: ws_admin
+vault_sys_password: secret123
