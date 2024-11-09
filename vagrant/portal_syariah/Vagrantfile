@@ -1,0 +1,19 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+    config.vm.box = "ubuntu_24_base"
+
+    config.ssh.username = "vagrant"
+    config.ssh.password = "vagrant"
+
+    config.vm.define "ps" do |ps|
+        ps.vm.synced_folder ".", "/vagrant", disabled: true
+        ps.vm.provider "libvirt" do |lv|
+            lv.memory = 2048
+            lv.cpus = 2
+        end
+
+        ps.vm.network "private_network", ip: "192.168.58.10"
+    end
+end
