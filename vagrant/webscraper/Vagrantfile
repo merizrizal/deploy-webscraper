@@ -7,13 +7,13 @@ Vagrant.configure("2") do |config|
     config.ssh.username = "vagrant"
     config.ssh.password = "vagrant"
 
-    config.vm.define "ps" do |ps|
-        ps.vm.synced_folder ".", "/vagrant", disabled: true
-        ps.vm.provider "libvirt" do |lv|
+    config.vm.define "ws" do |ws|
+        ws.vm.synced_folder ".", "/vagrant", disabled: true
+        ws.vm.provider "libvirt" do |lv|
             lv.memory = 2048
             lv.cpus = 2
         end
 
-        ps.vm.network "private_network", ip: "192.168.58.10"
+        ws.vm.network "private_network", ip: "192.168.58.10"
     end
 end

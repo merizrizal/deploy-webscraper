@@ -9,7 +9,7 @@ teardown-vm: stop-vm
 
 rebuild-base-image: teardown-vm start-vm
 	@sleep 5 && vagrant halt; \
-	image_name=base_image_ps; \
+	image_name=base_image_ws; \
 	image_path=`(virsh domblklist --domain $$image_name | awk '/vda/{print $$2}')`; \
 	echo Found base image path: $$image_path; \
 	sudo qemu-img create -f qcow2 -b $$image_path -F qcow2 $$image_name.qcow2; \
@@ -23,6 +23,7 @@ rebuild-base-image: teardown-vm start-vm
 	sudo chown $$current_user:$$current_user ubuntu_24_base.box; \
 	vagrant box add ubuntu_24_base.box --force --name ubuntu_24_base; \
 	rm ubuntu_24_base.box;
+	rm base_image_ws.qcow2;
 
 check-base-image:
 	@image=`(vagrant box list | grep ubuntu_24_base)`; \
