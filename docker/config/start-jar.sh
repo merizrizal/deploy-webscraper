@@ -1,0 +1,1 @@
+java -jar webscraper/webscraper.release.jar

@@ -1,0 +1,11 @@
+FROM eclipse-temurin:21
+WORKDIR /root
+
+ADD ./config ./initial-config
+
+RUN chmod +x ./initial-config/initial-script.sh
+RUN ./initial-config/initial-script.sh
+
+EXPOSE 8282
+
+ENTRYPOINT ["/bin/bash", "/root/webscraper/start-jar.sh"]

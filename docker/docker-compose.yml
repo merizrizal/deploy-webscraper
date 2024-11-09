@@ -1,0 +1,26 @@
+services:
+  jvm:
+    build:
+      context: ${ROOT_DIR}/
+      dockerfile: Dockerfile-jvm
+    image: 'webscraper:jvm'
+    container_name: webscraper_jvm
+    restart: always
+    networks:
+      webscraper:
+        ipv4_address: 172.118.0.4
+    ports:
+      - 8282:8282
+    volumes:
+      - ${ROOT_DIR}/config/start-jar.sh:/root/webscraper/start-jar.sh
+      - ${ROOT_DIR}/config/webscraper.release.jar:/root/webscraper/webscraper.release.jar
+    tty: true
+
+networks:
+  webscraper:
+    driver: bridge
+    attachable: true
+    ipam:
+     config:
+       - subnet: 172.118.0.0/16
+         gateway: 172.118.0.1
